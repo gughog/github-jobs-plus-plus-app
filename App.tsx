@@ -1,4 +1,6 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   // SafeAreaView,
   StyleSheet,
@@ -13,21 +15,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'cornflowerblue',
+    backgroundColor: '#ffe',
   },
   text: {
     fontSize: 30,
-    color: 'darkblue',
+    color: 'cornflowerblue',
   },
 });
 
 const App = () => {
   return (
-    <>
+    <NavigationContainer>
       <View style={styles.container}>
         <Text style={styles.text}>Hello GithubJobs++ !</Text>
       </View>
-    </>
+    </NavigationContainer>
   );
 };
 
