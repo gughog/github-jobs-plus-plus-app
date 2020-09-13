@@ -7,6 +7,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.main.dark,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   text: {
     fontSize: 30,
