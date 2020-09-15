@@ -9,12 +9,12 @@ import styles from './styles';
 const fallbackImage = '../../assets/images/fallback.png';
 const noLogo = '../../assets/images/no_logo.png';
 
-const JobListItem: React.FC<Position> = ({position}) => {
+const JobListItem: React.FC<Position> = ({position, navigation}) => {
   const {id, title, company_logo, created_at, type, company} = position;
   return (
     <TouchableOpacity
       onPress={() => {
-        longPressHandler(position);
+        navigation.navigate('JobView', position);
       }}
       onLongPress={() => {
         longPressHandler(position);

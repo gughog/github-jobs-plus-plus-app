@@ -1,3 +1,5 @@
+import {NavigationProp, RouteProp} from '@react-navigation/native';
+
 export interface Job {
   id: string;
   type?: string;
@@ -10,4 +12,9 @@ export interface Job {
   description?: string;
   how_to_apply?: string;
   company_logo?: string;
+}
+
+export interface NavigationProps {
+  navigation: NavigationProp<any, any>;
+  route: RouteProp<any, any>;
 }

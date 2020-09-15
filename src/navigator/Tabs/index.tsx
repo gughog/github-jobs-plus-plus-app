@@ -12,8 +12,8 @@ const Tabs: React.FC = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor={theme.main.textMain}
-      inactiveColor={theme.main.secondary}
+      activeColor={theme.main.secondary}
+      inactiveColor={theme.main.darkLighter}
       barStyle={styles.tabBar}>
       <Tab.Screen
         name="Home"

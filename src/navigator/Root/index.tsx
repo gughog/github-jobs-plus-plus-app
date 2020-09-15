@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Tabs from '../Tabs';
+import JobView from '../JobView';
 import styles from './styles';
 import theme from '../../themes';
 
@@ -18,20 +19,27 @@ const RootStackNavigator: React.FC = () => {
       <Stack.Navigator
         headerMode="screen"
         screenOptions={styles}
-        initialRouteName="maintab">
+        initialRouteName="MainTab">
         <Stack.Screen
-          name="maintab"
+          name="MainTab"
           component={Tabs}
           options={{
             title: 'Github Jobs ++',
             headerLeft: () => (
               <Icon
-                color={theme.main.textMain}
+                color={theme.main.secondary}
                 name="social-github"
                 size={35}
                 style={IconStyle}
               />
             ),
+          }}
+        />
+        <Stack.Screen
+          name="JobView"
+          component={JobView}
+          options={{
+            title: 'Job Details',
           }}
         />
       </Stack.Navigator>

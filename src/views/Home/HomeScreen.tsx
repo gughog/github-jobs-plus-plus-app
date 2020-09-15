@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styles from './styles';
 import {View, Text, Alert, FlatList} from 'react-native';
-import {Job} from '../../types';
+import {Job, NavigationProps} from '../../types';
 import {JobListItem} from '../../components/JobListItem';
 import Api from '../../services/Api.service';
 
-const HomeScreen: React.FC = () => {
+const HomeScreen: React.FC<NavigationProps> = ({navigation}) => {
   const [loading, setLoading] = React.useState(false);
   const [jobs, setJobs] = React.useState<Job[]>([]);
 
@@ -32,9 +32,12 @@ const HomeScreen: React.FC = () => {
 
     return (
       <View style={styles.list}>
+        <Text style={styles.text}>Last Jobs Added</Text>
         <FlatList
           data={jobs}
-          renderItem={({item}) => <JobListItem position={item} />}
+          renderItem={({item}) => (
+            <JobListItem navigation={navigation} position={item} />
+          )}
           keyExtractor={(item) => item.id}
         />
       </View>

@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
   tabItem: {
     fontSize: 30,
-    color: 'cornflowerblue',
   },
 });
 
