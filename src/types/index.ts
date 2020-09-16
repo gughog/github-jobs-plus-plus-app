@@ -12,6 +12,10 @@ export interface Job {
   description?: string;
   how_to_apply?: string;
   company_logo?: string;
+
+  // extended
+  isFavorite?: boolean;
+  applied?: boolean;
 }
 
 export interface NavigationProps {

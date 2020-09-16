@@ -10,9 +10,11 @@ const IconButton: React.FC<IconButtonProps> = ({
   iconName = 'heart',
   iconSize = 25,
   iconColor = theme.main.darkLighter,
+  onPress,
 }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       delayPressIn={0}
       style={{
         ...styles.button,
