@@ -33,11 +33,23 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 20,
     marginVertical: 15,
-    marginHorizontal: 10,
     color: theme.main.secondary,
   },
   description: {
     backgroundColor: theme.main.dark,
+    marginBottom: 10,
+  },
+  applyButton: {
+    justifyContent: 'center',
+    backgroundColor: theme.main.actions.success,
+    height: 40,
+    borderRadius: 7.5,
+  },
+  applyButtonText: {
+    color: theme.main.textMain,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
   },
 });
 

@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Tabs from '../Tabs';
 import JobView from '../JobView';
+import HowToApplyJobView from '../HowToApplyJobView';
 import styles from './styles';
 import theme from '../../themes';
 
@@ -40,6 +41,13 @@ const RootStackNavigator: React.FC = () => {
           component={JobView}
           options={{
             title: 'Job Details',
+          }}
+        />
+        <Stack.Screen
+          name="HowToApplyJobView"
+          component={HowToApplyJobView}
+          options={{
+            title: 'How to Apply',
           }}
         />
       </Stack.Navigator>
