@@ -1,8 +1,9 @@
 import * as React from 'react';
 import styles from './styles';
-import {View, Text, Alert, FlatList} from 'react-native';
+import {View, Text, ActivityIndicator, Alert, FlatList} from 'react-native';
 import {Job, NavigationProps} from '../../types';
 import {JobListItem} from '../../components/JobListItem';
+import theme from '../../themes';
 import Api from '../../services/Api.service';
 
 const HomeScreen: React.FC<NavigationProps> = ({navigation}) => {
@@ -27,13 +28,20 @@ const HomeScreen: React.FC<NavigationProps> = ({navigation}) => {
 
   const renderContent = () => {
     if (loading) {
-      return <Text style={styles.text}> Loading...</Text>;
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={theme.main.secondary} />
+        </View>
+      );
     }
 
     return (
       <View style={styles.list}>
         <FlatList
           data={jobs}
+          ListHeaderComponent={() => (
+            <Text style={styles.text}> Last Jobs </Text>
+          )}
           renderItem={({item}) => (
             <JobListItem navigation={navigation} position={item} />
           )}
