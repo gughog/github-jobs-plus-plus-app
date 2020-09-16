@@ -1,10 +1,12 @@
 const theme = {
   main: {
-    primary: '#057DCD',
-    secondary: '#0D47A1',
+    primary: '#111111',
+    secondary: '#99badd',
     dark: '#222222',
+    darker: '#333333',
+    darkLighter: '#444444',
     textMain: '#E8EEF1',
-    textEmphasys: '#7EC8E3',
+    textEmphasys: '#4682b4',
     emphasys: '#603F8B',
     actions: {
       success: '#4CAF50',
