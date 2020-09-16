@@ -7,16 +7,30 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Tabs from '../Tabs';
 import JobView from '../JobView';
 import HowToApplyJobView from '../HowToApplyJobView';
-
 import {IconButton} from '../../components/IconButton';
-
 import styles from './styles';
 import theme from '../../themes';
+import {Job} from '../../types';
+
+import {setApplied, setFavorites} from '../../services/Storage.service';
 
 const Stack = createStackNavigator();
 
 const IconStyle = {
   paddingLeft: 15,
+};
+
+const iconStyleHandler = ({applied, isFavorite}: Job) => {
+  return {
+    favorite: {
+      icon: isFavorite ? 'heart' : 'heart-outline',
+      color: isFavorite ? theme.main.actions.danger : '',
+    },
+    applied: {
+      icon: 'checkbox-marked-circle-outline',
+      color: applied ? theme.main.actions.success : '',
+    },
+  };
 };
 
 const RootStackNavigator: React.FC = () => {
@@ -44,21 +58,28 @@ const RootStackNavigator: React.FC = () => {
         <Stack.Screen
           name="JobView"
           component={JobView}
-          options={({_route}: any) => ({
+          options={({route}: any) => ({
             title: 'Job Details',
             headerRight: () => (
               <View
                 style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <IconButton size={50} iconColor="" iconName="heart" />
                 <IconButton
                   size={50}
-                  iconColor=""
-                  iconName="checkbox-marked-circle-outline"
+                  iconColor={iconStyleHandler(route.params).favorite.color}
+                  iconName={iconStyleHandler(route.params).favorite.icon}
+                  onPress={() => setFavorites(route.params)}
+                />
+                <IconButton
+                  size={50}
+                  iconColor={iconStyleHandler(route.params).applied.color}
+                  iconName={iconStyleHandler(route.params).applied.icon}
+                  onPress={() => setApplied(route.params)}
                 />
                 <IconButton
                   size={50}
                   iconColor={theme.main.secondary}
                   iconName="share-variant"
+                  onPress={() => ''}
                 />
               </View>
             ),
@@ -66,9 +87,6 @@ const RootStackNavigator: React.FC = () => {
               paddingHorizontal: 0,
             },
           })}
-          // options={{
-          //   title: 'Job Details',
-          // }}
         />
         <Stack.Screen
           name="HowToApplyJobView"
