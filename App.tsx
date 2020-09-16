@@ -1,3 +1,8 @@
+// Reacttotron init
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
+
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {StatusBar} from 'react-native';
