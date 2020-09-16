@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 30,
-    color: 'cornflowerblue',
+    color: theme.main.textMain,
   },
   list: {
     paddingVertical: 10,

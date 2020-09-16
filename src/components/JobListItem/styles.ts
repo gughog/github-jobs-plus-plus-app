@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: theme.main.darkLighter,
+    backgroundColor: theme.main.darker,
     margin: 7.5,
     borderRadius: 5,
     padding: 7.5,

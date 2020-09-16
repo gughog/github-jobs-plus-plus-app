@@ -32,7 +32,6 @@ const HomeScreen: React.FC<NavigationProps> = ({navigation}) => {
 
     return (
       <View style={styles.list}>
-        <Text style={styles.text}>Last Jobs Added</Text>
         <FlatList
           data={jobs}
           renderItem={({item}) => (
