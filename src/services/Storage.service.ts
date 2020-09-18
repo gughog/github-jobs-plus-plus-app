@@ -33,7 +33,10 @@ export const setFavorites = async (job: Job) => {
       (favoriteJob: Job) => favoriteJob.id === job.id,
     );
 
-    isDuplicated && removeFromFavorites(job);
+    if (isDuplicated) {
+      removeFromFavorites(job);
+      return false;
+    }
 
     // else, append the item to the previous, adding a flag
     const payload = [
@@ -88,6 +91,7 @@ export const removeFromFavorites = async (job: Job) => {
           action: () => {},
         },
       });
+      return true;
     }
     return true;
   } catch (error) {
@@ -160,6 +164,18 @@ export const setApplied = async ({id}: Job) => {
     for (let i = 0; i < store.length; i++) {
       if (store[i].id === id) {
         store[i].applied = !store[i].applied;
+        AlertWrapper({
+          title: `${
+            store[i].applied ? 'Added to' : 'Removed from'
+          } applied jobs!`,
+          description: `The position "${store[i].title}" was ${
+            store[i].applied ? 'added' : 'removed'
+          } to your list of applied jobs!`,
+          okayButton: {
+            text: 'Ok',
+            action: () => {},
+          },
+        });
       }
     }
 

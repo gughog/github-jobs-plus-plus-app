@@ -52,8 +52,8 @@ const JobsProvider: React.FC = ({children}) => {
       data && setJobs(reconciliatedData);
 
       // TODO: REMOVE THIS CONSOLE.LOGs
-      console.log(reconciliatedData[0].isFavorite);
-      console.log(reconciliatedData[0].applied);
+      console.log('isFavorite? ', reconciliatedData[0].isFavorite);
+      console.log('applied? ', reconciliatedData[0].applied);
     } catch (error) {
       AlertWrapper({
         title: 'Some error has occured!',
