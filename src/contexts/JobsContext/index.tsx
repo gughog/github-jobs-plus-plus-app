@@ -50,10 +50,6 @@ const JobsProvider: React.FC = ({children}) => {
       const {data} = await Api.get('/positions.json');
       const reconciliatedData = await reconcileArraysAndReturnWithFlags(data);
       data && setJobs(reconciliatedData);
-
-      // TODO: REMOVE THIS CONSOLE.LOGs
-      console.log('isFavorite? ', reconciliatedData[0].isFavorite);
-      console.log('applied? ', reconciliatedData[0].applied);
     } catch (error) {
       AlertWrapper({
         title: 'Some error has occured!',
