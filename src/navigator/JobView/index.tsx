@@ -20,7 +20,12 @@ const ModalScreen: React.FC<NavigationProps> = ({route, navigation}) => {
     how_to_apply,
   } = route.params as Job;
 
-  const coloredHtml = `<div style="color: ${theme.main.textMain};">${description}</div>`;
+  const coloredHtml = `
+    <style> * a {color: ${theme.main.secondary}} </style>
+    <div style="color: ${theme.main.textMain};">
+      ${description}
+    </div>
+  `;
 
   return (
     <View key={id} style={styles.container}>
