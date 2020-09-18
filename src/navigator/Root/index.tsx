@@ -7,11 +7,13 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Tabs from '../Tabs';
 import JobView from '../JobView';
 import HowToApplyJobView from '../HowToApplyJobView';
-
 import {IconButton} from '../../components/IconButton';
-
 import styles from './styles';
 import theme from '../../themes';
+import {Job} from '../../types';
+import {setApplied, setFavorites} from '../../services/Storage.service';
+import {AlertWrapper} from '../../helpers/modals.helpers';
+import {useJobs} from '../../contexts/JobsContext';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +21,32 @@ const IconStyle = {
   paddingLeft: 15,
 };
 
+type ModifierType = 'favorites' | 'applied';
+
 const RootStackNavigator: React.FC = () => {
+  const {fetchJobs} = useJobs();
+
+  // adds to favorites, and re-run fetchJobs to reconcile and rerender view.
+  const handlePress = async (params: Job, modifier: ModifierType) => {
+    try {
+      if (modifier === 'favorites') {
+        await setFavorites(params);
+      } else {
+        await setApplied(params);
+      }
+      await fetchJobs();
+    } catch (error) {
+      AlertWrapper({
+        title: 'Some error has occured!',
+        description: `The following error has occured: ${error.message}`,
+        okayButton: {
+          text: 'Ok',
+          action: () => fetchJobs(),
+        },
+      });
+    }
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -44,21 +71,37 @@ const RootStackNavigator: React.FC = () => {
         <Stack.Screen
           name="JobView"
           component={JobView}
-          options={({_route}: any) => ({
+          options={({route}: any) => ({
             title: 'Job Details',
             headerRight: () => (
               <View
                 style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <IconButton size={50} iconColor="" iconName="heart" />
                 <IconButton
                   size={50}
-                  iconColor=""
-                  iconName="checkbox-marked-circle-outline"
+                  isActive={route.params.isFavorite}
+                  activeColor={theme.main.actions.danger}
+                  iconName={route.params.isFavorite ? 'heart' : 'heart-outline'}
+                  onPress={() => {
+                    route.params.isFavorite = !route.params.isFavorite;
+                    return handlePress(route.params, 'favorites');
+                  }}
                 />
                 <IconButton
                   size={50}
-                  iconColor={theme.main.secondary}
+                  isActive={route.params.applied}
+                  activeColor={theme.main.actions.success}
+                  iconName={'checkbox-marked-circle-outline'}
+                  onPress={() => {
+                    route.params.applied = !route.params.applied;
+                    return handlePress(route.params, 'applied');
+                  }}
+                />
+                <IconButton
+                  size={50}
+                  isActive={true}
+                  activeColor={theme.main.secondary}
                   iconName="share-variant"
+                  onPress={() => ''}
                 />
               </View>
             ),
@@ -66,9 +109,6 @@ const RootStackNavigator: React.FC = () => {
               paddingHorizontal: 0,
             },
           })}
-          // options={{
-          //   title: 'Job Details',
-          // }}
         />
         <Stack.Screen
           name="HowToApplyJobView"

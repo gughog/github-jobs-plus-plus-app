@@ -25,3 +25,45 @@ export const longPressHandler = (position: Job) => {
     ],
   );
 };
+
+export interface AlertWrapperProps {
+  title: string;
+  description: string;
+  cancelButton?: {
+    text: string;
+    action: () => void;
+  };
+  okayButton: {
+    text: string;
+    action: () => void;
+  };
+}
+
+export const AlertWrapper = (props: AlertWrapperProps) => {
+  const {title, description, okayButton, cancelButton} = props;
+
+  if (!cancelButton) {
+    Alert.alert(title, description, [
+      {
+        text: okayButton.text || 'Ok',
+        onPress: okayButton.action,
+        style: 'default',
+      },
+    ]);
+
+    return true;
+  }
+  Alert.alert(title, description, [
+    cancelButton && {
+      text: cancelButton.text,
+      onPress: cancelButton.action,
+      style: 'cancel',
+    },
+    {
+      text: okayButton.text || 'Ok',
+      onPress: okayButton.action,
+      style: 'default',
+    },
+  ]);
+  return true;
+};
