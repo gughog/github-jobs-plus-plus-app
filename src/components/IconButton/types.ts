@@ -1,8 +1,9 @@
 export interface IconButtonProps {
   type?: 'rounded' | 'round' | 'default';
   size?: number;
-  onPress: () => void;
+  onPress: () => Promise<void>;
   iconSize?: number;
   iconName?: string;
-  iconColor?: string;
+  activeColor?: string;
+  isActive?: boolean;
 }

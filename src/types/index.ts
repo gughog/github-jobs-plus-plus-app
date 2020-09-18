@@ -1,4 +1,5 @@
 import {NavigationProp, RouteProp} from '@react-navigation/native';
+import {NativeSyntheticEvent, TextInputTextInputEventData} from 'react-native';
 
 export interface Job {
   id: string;
@@ -22,3 +23,5 @@ export interface NavigationProps {
   navigation: NavigationProp<any, any>;
   route: RouteProp<any, any>;
 }
+
+export type InputEvent = NativeSyntheticEvent<TextInputTextInputEventData>;
