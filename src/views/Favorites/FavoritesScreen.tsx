@@ -1,13 +1,71 @@
 import * as React from 'react';
 import styles from './styles';
-import {View, Text} from 'react-native';
+import {View, Text, ActivityIndicator, FlatList} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
+import {getFavorites} from '../../services/Storage.service';
+import {Job, NavigationProps} from '../../types';
+import theme from '../../themes';
+import {JobListItem} from '../../components/JobListItem';
+import {AlertWrapper} from '../../helpers/modals.helpers';
 
-const FavoritesScreen: React.FC = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.text}> Favorites Page </Text>
-    </View>
-  );
+const FavoritesScreen: React.FC<NavigationProps> = ({navigation}) => {
+  const [favorites, setFavorites] = React.useState<Job[]>();
+  const [loading, setLoading] = React.useState(false);
+
+  const isFocused = useIsFocused();
+
+  const fetchAndSetFavorites = async () => {
+    try {
+      setLoading(true);
+      const favoriteJobs = await getFavorites();
+      setFavorites(favoriteJobs);
+    } catch (error) {
+      AlertWrapper({
+        title: 'Some error has occured!',
+        description: `The following error has occured: ${error.message}`,
+        okayButton: {
+          text: 'Ok',
+          action: () => {},
+        },
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchAndSetFavorites();
+  }, [isFocused]);
+
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <View style={styles.loading}>
+          <ActivityIndicator size="large" color={theme.main.secondary} />
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.list}>
+        <FlatList
+          data={favorites}
+          ListHeaderComponent={() => (
+            <Text style={styles.text}>
+              {' '}
+              My Favorites ({favorites ? favorites.length : 0}){' '}
+            </Text>
+          )}
+          renderItem={({item}) => (
+            <JobListItem navigation={navigation} position={item} />
+          )}
+          keyExtractor={(item) => item.id}
+        />
+      </View>
+    );
+  };
+
+  return <View style={styles.container}>{renderContent()}</View>;
 };
 
 export default FavoritesScreen;
