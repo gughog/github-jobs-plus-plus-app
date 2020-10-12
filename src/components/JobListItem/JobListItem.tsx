@@ -16,7 +16,7 @@ const JobListItem: React.FC<Position> = ({position, navigation}) => {
       onPress={() => {
         navigation.navigate('JobView', position);
       }}
-      onLongPress={() => {
+      onLongPress={async () => {
         longPressHandler(position);
       }}
       delayLongPress={500}>
