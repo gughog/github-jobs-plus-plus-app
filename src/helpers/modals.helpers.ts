@@ -1,29 +1,44 @@
 import {Alert} from 'react-native';
 import {Job} from '../types';
+import {setFavorites, removeFromFavorites} from '../services/Storage.service';
 
 export const longPressHandler = (position: Job) => {
-  Alert.alert(
-    'Add to favorites?',
-    'Do you want to add this position to your favorite job list?',
-    [
-      {
-        text: 'Cancel',
-        onPress: () => '',
-        style: 'cancel',
+  const {isFavorite} = position;
+  const title = `${isFavorite ? 'Remove from' : 'Add to'} favorites?`;
+  const description = `Do you want to ${
+    isFavorite ? 'remove' : 'Add'
+  } this position ${isFavorite ? 'from' : 'to'} your favorite job list?`;
+  const buttonText = `${isFavorite ? 'Remove from' : 'Add to'} Favorites`;
+
+  Alert.alert(title, description, [
+    {
+      text: 'Cancel',
+      onPress: () => '',
+      style: 'cancel',
+    },
+    {
+      text: buttonText,
+      onPress: async () => {
+        try {
+          if (isFavorite) {
+            await removeFromFavorites(position);
+          } else {
+            await setFavorites(position);
+          }
+        } catch (error) {
+          AlertWrapper({
+            title: 'Some error has occured!',
+            description: `The following error has occured: ${error.message}`,
+            okayButton: {
+              text: 'Ok',
+              action: () => {},
+            },
+          });
+        }
       },
-      {
-        text: 'Add to Favorites',
-        onPress: () => {
-          Alert.alert(
-            'Added to favorites!',
-            `The position "${position.title}" was added to your favorite list!`,
-            [{text: 'Return'}],
-          );
-        },
-        style: 'default',
-      },
-    ],
-  );
+      style: 'default',
+    },
+  ]);
 };
 
 export interface AlertWrapperProps {
