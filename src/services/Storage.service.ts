@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import {AlertWrapper} from '../helpers/modals.helpers';
+import {AlertWrapper} from '../helpers/actions.helpers';
 import {Job} from '../types';
 
 const STORAGE_KEY = '@GITHUB_PLUS_PLUS_STORE';

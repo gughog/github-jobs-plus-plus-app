@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AlertWrapper} from '../../helpers/modals.helpers';
+import {AlertWrapper} from '../../helpers/actions.helpers';
 import {getFavorites} from '../../services/Storage.service';
 import {Job} from '../../types';
 

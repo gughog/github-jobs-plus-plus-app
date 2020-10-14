@@ -1,4 +1,4 @@
-import {Alert} from 'react-native';
+import {Alert, Share} from 'react-native';
 import {Job} from '../types';
 import {setFavorites, removeFromFavorites} from '../services/Storage.service';
 
@@ -81,4 +81,29 @@ export const AlertWrapper = (props: AlertWrapperProps) => {
     },
   ]);
   return true;
+};
+
+// Share feature
+export const ShareJob = async ({url, title, company}: Job) => {
+  try {
+    const result = await Share.share(
+      {
+        title: 'hdsjhsjdfhjksdhfjdkshfhdjksh',
+        message: `Hey there! \n\nI'm sharing with you this job position I found on "Github Jobs ++": \n\nTitle: "${title}"\nCompany: "${company}". \n\nLink for the Job: ${url} \n\n---\nCheck out Github Jobs++ app on this link: https://github.com/gughog`,
+      },
+      {
+        dialogTitle: 'Share this job position',
+      },
+    );
+
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // shared with activity type of result.activityType
+      } else {
+        // shared
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // dismissed
+    }
+  } catch (error) {}
 };

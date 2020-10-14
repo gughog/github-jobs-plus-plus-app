@@ -3,7 +3,7 @@ import {Text, View, Image, TouchableOpacity, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {formatDate} from '../../helpers/formatters.helpers';
 import {Position} from './types';
-import {AlertWrapper} from '../../helpers/modals.helpers';
+import {AlertWrapper} from '../../helpers/actions.helpers';
 import styles from './styles';
 import {
   removeFromFavorites,
