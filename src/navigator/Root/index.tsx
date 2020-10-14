@@ -12,7 +12,7 @@ import styles from './styles';
 import theme from '../../themes';
 import {Job} from '../../types';
 import {setApplied, setFavorites} from '../../services/Storage.service';
-import {AlertWrapper} from '../../helpers/modals.helpers';
+import {AlertWrapper} from '../../helpers/actions.helpers';
 import {useJobs} from '../../contexts/JobsContext';
 
 const Stack = createStackNavigator();

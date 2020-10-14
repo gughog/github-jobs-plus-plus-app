@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {InputEvent, Job} from '../../types';
-import {AlertWrapper} from '../../helpers/modals.helpers';
+import {AlertWrapper} from '../../helpers/actions.helpers';
 import Api from '../../services/Api.service';
 import {reconcileArraysAndReturnWithFlags} from '../../helpers/formatters.helpers';
 

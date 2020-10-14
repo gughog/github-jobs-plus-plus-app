@@ -1,6 +1,6 @@
 import {formatDistance} from 'date-fns';
 import {Job} from '../types';
-import {AlertWrapper} from '../helpers/modals.helpers';
+import {AlertWrapper} from './actions.helpers';
 import {getApplied, getFavorites} from '../services/Storage.service';
 
 /**

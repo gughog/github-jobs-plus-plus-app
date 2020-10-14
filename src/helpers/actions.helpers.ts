@@ -82,3 +82,9 @@ export const AlertWrapper = (props: AlertWrapperProps) => {
   ]);
   return true;
 };
+
+// Share feature
+export const ShareJob = async () => {
+  try {
+  } catch (error) {}
+};
