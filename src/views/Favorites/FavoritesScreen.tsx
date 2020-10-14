@@ -1,40 +1,22 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import styles from './styles';
 import {View, Text, ActivityIndicator, FlatList} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
-import {getFavorites} from '../../services/Storage.service';
-import {Job, NavigationProps} from '../../types';
+import {FAB as FloatingButton} from 'react-native-paper';
+import {NavigationProps} from '../../types';
 import theme from '../../themes';
 import {JobListItem} from '../../components/JobListItem';
-import {AlertWrapper} from '../../helpers/modals.helpers';
+import useFavoriteJobs from '../../hooks/useFavoriteJobs';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const FavoritesScreen: React.FC<NavigationProps> = ({navigation}) => {
-  const [favorites, setFavorites] = React.useState<Job[]>();
-  const [loading, setLoading] = React.useState(false);
-
   const isFocused = useIsFocused();
-
-  const fetchAndSetFavorites = async () => {
-    try {
-      setLoading(true);
-      const favoriteJobs = await getFavorites();
-      setFavorites(favoriteJobs);
-    } catch (error) {
-      AlertWrapper({
-        title: 'Some error has occured!',
-        description: `The following error has occured: ${error.message}`,
-        okayButton: {
-          text: 'Ok',
-          action: () => {},
-        },
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {favorites, loading, fetchAndSetFavorites} = useFavoriteJobs();
 
   React.useEffect(() => {
     fetchAndSetFavorites();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   const renderContent = () => {
@@ -47,21 +29,44 @@ const FavoritesScreen: React.FC<NavigationProps> = ({navigation}) => {
     }
 
     return (
-      <View style={styles.list}>
-        <FlatList
-          data={favorites}
-          ListHeaderComponent={() => (
-            <Text style={styles.text}>
-              {' '}
-              My Favorites ({favorites ? favorites.length : 0}){' '}
-            </Text>
-          )}
-          renderItem={({item}) => (
-            <JobListItem navigation={navigation} position={item} />
-          )}
-          keyExtractor={(item) => item.id}
-        />
-      </View>
+      <>
+        <View style={styles.list}>
+          <FlatList
+            data={favorites}
+            ListHeaderComponent={() => (
+              <Text style={styles.text}>
+                {' '}
+                My Favorites ({favorites ? favorites.length : 0}){' '}
+              </Text>
+            )}
+            renderItem={({item}) => (
+              <JobListItem
+                navigation={navigation}
+                position={item}
+                refreshMethod={fetchAndSetFavorites}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </View>
+
+        {/* DEBUG ONLY */}
+        {__DEV__ && (
+          <FloatingButton
+            icon="delete-sweep-outline"
+            onPress={async () => {
+              await AsyncStorage.clear();
+            }}
+            style={{
+              backgroundColor: 'red',
+              position: 'absolute',
+              margin: 10,
+              right: 0,
+              bottom: 0,
+            }}
+          />
+        )}
+      </>
     );
   };
 
