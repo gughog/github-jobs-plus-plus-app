@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 import * as React from 'react';
 import styles from './styles';
@@ -16,7 +17,6 @@ const FavoritesScreen: React.FC<NavigationProps> = ({navigation}) => {
 
   React.useEffect(() => {
     fetchAndSetFavorites();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   const renderContent = () => {
