@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {InputEvent, Job} from '../../types';
+import {Job} from '../../types';
 import {AlertWrapper} from '../../helpers/actions.helpers';
 import Api from '../../services/Api.service';
 import {reconcileArraysAndReturnWithFlags} from '../../helpers/formatters.helpers';
@@ -7,24 +7,18 @@ import {reconcileArraysAndReturnWithFlags} from '../../helpers/formatters.helper
 export interface JobsContextProps {
   jobs: Job[];
   loading: boolean;
-  search: string;
   setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
   fetchJobs: () => Promise<void>;
-  handleSearchChange: (e: InputEvent) => void;
 }
 
 // Initial context
 const JobsContext = React.createContext<JobsContextProps>({
   jobs: [],
   loading: false,
-  search: '',
   setJobs: () => {},
   setLoading: () => {},
-  setSearch: () => {},
   fetchJobs: async () => {},
-  handleSearchChange: () => {},
 });
 
 // Hook to access all properties
@@ -41,7 +35,6 @@ const useJobs = () => {
 const JobsProvider: React.FC = ({children}) => {
   const [loading, setLoading] = React.useState(false);
   const [jobs, setJobs] = React.useState<Job[]>([]);
-  const [search, setSearch] = React.useState('');
 
   // fetch jobs from the api
   const fetchJobs = async () => {
@@ -64,11 +57,6 @@ const JobsProvider: React.FC = ({children}) => {
     }
   };
 
-  // updates the search input state
-  const handleSearchChange = (e: InputEvent) => {
-    setSearch(e.nativeEvent.text);
-  };
-
   // on component mount, fetch data from the api
   React.useEffect(() => {
     fetchJobs();
@@ -79,12 +67,9 @@ const JobsProvider: React.FC = ({children}) => {
       value={{
         jobs,
         loading,
-        search,
         setJobs,
         setLoading,
-        setSearch,
         fetchJobs,
-        handleSearchChange,
       }}>
       {children}
     </JobsContext.Provider>

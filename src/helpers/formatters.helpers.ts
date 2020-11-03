@@ -53,3 +53,11 @@ export const reconcileArraysAndReturnWithFlags = async (jobs: Job[]) => {
     return jobs;
   }
 };
+
+export const queryUrlGenerator = (baseUrl: string, values: any[]) => {
+  const url = values && values.length ? `${baseUrl}?` : baseUrl;
+
+  return `${url}${values
+    .map((param: any) => `${param[0]}=${param[1]}`)
+    .join('&')}`;
+};
