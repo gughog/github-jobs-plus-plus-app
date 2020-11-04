@@ -30,7 +30,7 @@ const SearchScreen: React.FC<NavigationProps> = ({navigation}) => {
   const [filteredJobs, setFilteredJobs] = React.useState<Job[]>();
 
   const [search, setSearch] = React.useState('');
-  const [location, setLocation] = React.useState('');
+  const [location, setLocation] = React.useState('United States');
   const [isFullTime, setIsFullTime] = React.useState(true);
 
   const fetchFilteredJobs = async () => {
