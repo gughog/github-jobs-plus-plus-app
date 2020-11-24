@@ -1,4 +1,4 @@
-## Github Jobs ++
+# Github Jobs ++
 
 Find your first/next job directly from the `src`!
 ## About
