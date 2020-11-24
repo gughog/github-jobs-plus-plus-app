@@ -1,9 +1,4 @@
-<div style="text-align: center;">
-  <img src=".github/logo.png" alt="alt text" width="300"/>
-  <h1 style="margin: 16px 0 16px 0;">
-    Github Jobs ++
-  </h1>
-</div>
+## Github Jobs ++
 
 Find your first/next job directly from the `src`!
 ## About
